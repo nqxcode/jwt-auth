@@ -11,6 +11,7 @@
 
 namespace Tymon\JWTAuth\Claims;
 
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class NotBefore extends Claim
@@ -29,6 +30,16 @@ class NotBefore extends Claim
     {
         if ($this->isFuture($this->getValue())) {
             throw new TokenInvalidException('Not Before (nbf) timestamp cannot be in the future');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateRefresh($refreshTTL)
+    {
+        if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
+            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
         }
     }
 }

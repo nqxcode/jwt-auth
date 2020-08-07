@@ -215,8 +215,8 @@ class PayloadValidatorTest extends AbstractTestCase
             new Subject(1),
             new Issuer('http://example.com'),
             new Expiration($this->testNowTimestamp),
-            new NotBefore($this->testNowTimestamp),
-            new IssuedAt($this->testNowTimestamp - 5000), // this is MORE than the refresh ttl at 1 hour, so is invalid
+            new NotBefore($this->testNowTimestamp - 5000), // this is MORE than the refresh ttl at 1 hour, so is invalid
+            new IssuedAt($this->testNowTimestamp),
             new JwtId('foo'),
         ];
 

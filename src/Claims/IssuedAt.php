@@ -49,14 +49,4 @@ class IssuedAt extends Claim
             throw new TokenInvalidException('Issued At (iat) timestamp cannot be in the future');
         }
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateRefresh($refreshTTL)
-    {
-        if ($this->isPast($this->getValue() + $refreshTTL * 60)) {
-            throw new TokenExpiredException('Token has expired and can no longer be refreshed');
-        }
-    }
 }
